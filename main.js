@@ -27,6 +27,11 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 // main render loop
 function render() {
   requestAnimationFrame(render);
+
+  // animate box
+  box.rotation.x += 0.01;
+  box.rotation.y += 0.005;
+
   renderer.render(scene, camera);
 }
 
