@@ -2,6 +2,9 @@ import "./style.css";
 
 import * as THREE from "three";
 
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+
 const loader = new THREE.TextureLoader();
 
 const scene = new THREE.Scene();
@@ -21,6 +24,9 @@ const pointLight = new THREE.PointLight("white", 1.0);
 pointLight.position.set(0, 1.5, 0);
 scene.add(pointLight);
 
+const gridHelper = new THREE.GridHelper(100, 100);
+scene.add(gridHelper);
+
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
@@ -36,12 +42,17 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
+// orbit controls
+const controls = new OrbitControls(camera, renderer.domElement);
+
 const clock = new THREE.Clock();
 clock.start();
 
 // main render loop
 function render() {
   requestAnimationFrame(render);
+
+  controls.update();
 
   // animate box
   moon.rotation.x += 0.005;
